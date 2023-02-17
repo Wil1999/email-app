@@ -1,1 +1,27 @@
-<p>listar-usuario works!</p>
+<div class="container py-4">
+  <div class="card bg-light">
+    <div class="card-header"><span>Usuarios Registrados</span></div>
+    <div class="card-body">
+      <table class="table table-bordered text-center table-dark table-striped">
+        <thead>
+          <tr>
+            <th>Nombre Completo</th>
+            <th>Correo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div class="text-center" *ngIf="mensageVacio != ''">
+            No hay registro existente.
+          </div>
+          <tr *ngFor="let u of usuarios">
+            <td>{{u.nombres}}</td>
+            <td>{{u.correo}}</td>
+            <td *ngIf="u.enabled == true">Validado</td>
+            <td *ngIf="u.enabled == false">Sin Validar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

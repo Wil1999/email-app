@@ -1,1 +1,28 @@
-<p>agregar-usuario works!</p>
+<div class="container pt-4">
+  <div class="card bg-white">
+    <div class="card-body">
+        <!--
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Nombre</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert-danger'" />
+				<small th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="form-text text-danger"></small>
+			</div>
+		</div>
+-->
+      <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-contact">
+          <h2>Registro Newsletter</h2>
+          <label for="nombre" class="contact-information">
+            <span class="label" for="nombres">Nombre</span>
+            <input class="input" type="text" id="nombre" name="nombres" formControlName="nombres" placeholder="ej. Juan Manuel">
+          </label>
+          <label for="email" class="contact-information">
+            <span class="label" for="correo">Email</span>
+            <input class="input" type="email" id="email" name="correo" formControlName="correo" placeholder="ej. miemail@mail.com">
+          </label>
+          <input class="submit" type="submit" value="enviar">
+        </form>
+    </div>
+  </div>
+</div>

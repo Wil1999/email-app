@@ -18,9 +18,8 @@ public class Usuario {
 	
 	private String nombres;
 	private String correo;
-	private String password;
 	
-	@Column(name = "is_enabled")
+	@Column(name = "enabled")
 	private boolean isEnabled;
 	
 	public Long getId() {
@@ -40,12 +39,6 @@ public class Usuario {
 	}
 	public void setCorreo(String correo) {
 		this.correo = correo;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public boolean isEnabled() {
 		return isEnabled;

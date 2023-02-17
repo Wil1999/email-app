@@ -1,10 +1,16 @@
 package com.email.app.be.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +23,7 @@ import com.email.app.be.repository.IConfirmacionToken;
 import com.email.app.be.repository.IUsuarioRepository;
 import com.email.app.be.service.CorreoService;
 
+//@CrossOrigin(allowedHeaders = "*",origins = "*")
 @Controller
 public class UsuarioController {
 	
@@ -29,8 +36,11 @@ public class UsuarioController {
 	@Autowired
 	private CorreoService correoService;
 	
+	private final Logger log= LoggerFactory.getLogger(getClass());
+	
 	@PostMapping("/registrar")
 	public ResponseEntity<String> registroUsuario(Usuario usuario){
+		log.info("entrando: "+usuario.getNombres() + " "+ usuario.getCorreo());
 		Usuario old_usuario = usuarioRepositorio.findByCorreoIgnoreCase(usuario.getCorreo());
 		if(old_usuario != null) {
 			return new ResponseEntity<>("Error, el usuario ya existe",HttpStatus.BAD_REQUEST);
@@ -40,9 +50,9 @@ public class UsuarioController {
 		confirmacionToken.save(tokenConfirmation);
 		SimpleMailMessage correoConfirmation = new SimpleMailMessage();
 		correoConfirmation.setTo(usuario.getCorreo());
-		correoConfirmation.setSubject("Registro Completo!!");
-		correoConfirmation.setFrom("wcaceresaurelio@gmail.com");
-		correoConfirmation.setText("Para confirmar tu cuenta, porfavor CLICK AQUI: "+ "http://localhost:8080/confirmar-correo?token="+tokenConfirmation.getConfirmacion());
+		correoConfirmation.setSubject("COMPLETA TU REGISTRO!!");
+		correoConfirmation.setFrom("wilfredo.caceres@ae.edu.pe");
+		correoConfirmation.setText("Para activar tu correo, porfavor CLICK AQUI: "+ "https://emailappbe.herokuapp.com/confirmar-correo?token="+tokenConfirmation.getConfirmacion());
 		correoService.enviarEmail(correoConfirmation);
 		return new ResponseEntity<>(usuario.getCorreo(),HttpStatus.OK);
 	}
@@ -54,9 +64,18 @@ public class UsuarioController {
 			Usuario usuario = usuarioRepositorio.findByCorreoIgnoreCase(token.getUsuario().getCorreo());
 			usuario.setEnabled(true);
 			usuarioRepositorio.save(usuario);
-			return new ResponseEntity<>("Cuenta verificada",HttpStatus.OK);
+			return new ResponseEntity<>("Cuenta activada!!",HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>("Error link inválido",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Tu cuenta ya ha sido activada!!",HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@GetMapping("/listar")
+	public ResponseEntity<List<Usuario>> listarUsuarios(){
+		List<Usuario> result = (List<Usuario>) usuarioRepositorio.findAll();
+		if(result.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 }
