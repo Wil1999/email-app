@@ -29,7 +29,7 @@ public class Token {
 	
 	
 	@OneToOne(targetEntity = Usuario.class,fetch= FetchType.EAGER)
-	@JoinColumn(nullable = false,name="user_id")
+	@JoinColumn(nullable = false,name="usuario_id")
 	private Usuario usuario;
 
 
