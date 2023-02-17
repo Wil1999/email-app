@@ -51,7 +51,7 @@ public class UsuarioController {
 		SimpleMailMessage correoConfirmation = new SimpleMailMessage();
 		correoConfirmation.setTo(usuario.getCorreo());
 		correoConfirmation.setSubject("COMPLETA TU REGISTRO!!");
-		correoConfirmation.setFrom("wilfredo.caceres@ae.edu.pe");
+		correoConfirmation.setFrom("marco.rimac@ae.edu.pe");
 		correoConfirmation.setText("Para activar tu correo, porfavor CLICK AQUI: "+ "https://emailappbe.herokuapp.com/confirmar-correo?token="+tokenConfirmation.getConfirmacion());
 		correoService.enviarEmail(correoConfirmation);
 		return new ResponseEntity<>(usuario.getCorreo(),HttpStatus.OK);
@@ -64,7 +64,7 @@ public class UsuarioController {
 			Usuario usuario = usuarioRepositorio.findByCorreoIgnoreCase(token.getUsuario().getCorreo());
 			usuario.setEnabled(true);
 			usuarioRepositorio.save(usuario);
-			return new ResponseEntity<>("Cuenta activada!!",HttpStatus.OK);
+			return new ResponseEntity<>("Tu correo ha sido ACTIVADO exitósamente!! Puedes disfrutar de tu cuenta.",HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>("Tu cuenta ya ha sido activada!!",HttpStatus.BAD_REQUEST);
 		}

@@ -24,7 +24,7 @@ public class EmailAppBeApplication {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(false);
 		//corsConfiguration.setAllowedOrigins(Arrays.asList("https://emailappfe.herokuapp.com/"));
-		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200/","https://emailappfe.herokuapp.com/"));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Content-Type"));
 		corsConfiguration.setExposedHeaders(Arrays.asList("Content-Type"));
 		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

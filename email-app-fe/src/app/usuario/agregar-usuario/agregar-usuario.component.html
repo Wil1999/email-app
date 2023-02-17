@@ -10,8 +10,7 @@
 			</div>
 		</div>
 -->
-      <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
-        <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-contact">
+        <form [formGroup]="formulario" id="form-usuario" (ngSubmit)="onSubmit()" class="form-contact">
           <h2>Registro Newsletter</h2>
           <label for="nombre" class="contact-information">
             <span class="label" for="nombres">Nombre</span>
@@ -23,6 +22,47 @@
           </label>
           <input class="submit" type="submit" value="enviar">
         </form>
+    </div>
+  </div>
+</div>
+<div class="modal" id="modalError" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger text-border">ERROR</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-block alert-danger">
+          ERROR, EL USUARIO EXISTE!!! INGRESE UNO NUEVO.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="modalSucces" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-success text-border">REGISTRO SATISFACTORIO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-block alert-success">
+          USUARIO REGISTRADO!! <br>
+          Par activar su correo revise su bandeja de entrada.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+      </div>
     </div>
   </div>
 </div>
